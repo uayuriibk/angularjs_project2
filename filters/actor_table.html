@@ -1,0 +1,74 @@
+<html>
+
+<head>
+
+<title>Table and AngularJS</title>
+
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+
+<style>
+table, th , td {
+  border: 2px solid grey;
+  border-collapse: collapse;
+  padding: 6px;
+}
+table tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+</style>
+
+</head>
+
+<body>
+<h2>Actor in table with skillset</h2>
+<div ng-app="mainApp" ng-controller="actorController">
+
+<table border="0">
+<tr><td> Enter first name: </td><td><input type="text" ng-model="actor.firstName"></td></tr>
+<tr><td> Enter last name: </td><td><input type="text" ng-model="actor.lastName"></td></tr>
+<tr><td> Name: </td><td>{{actor.fullName()}}</td></tr>
+<tr><td> Skills: </td><td>
+
+<table>
+   <tr>
+      <th>Skill title</th>
+      <th>Level</th>
+   </tr>
+   <tr ng-repeat="skill in actor.skills">
+      <td>{{ skill.title }}</td>
+      <td>{{ skill.level }}</td>
+   </tr>
+</table>
+
+</td></tr>
+</table>
+
+</div>
+
+
+<script>
+var mainApp = angular.module("mainApp", []);
+mainApp.controller('actorController', function($scope) {
+   $scope.actor = {
+      firstName: "Bruce",
+      lastName: "Willis",
+      salary:100000,
+      skills:[
+         {title:'Fighting', level:70},
+         {title:'Shooting', level:80},
+         {title:'WorldSaving', level:90}
+      ],
+      fullName: function() {
+         var actorObject;
+         actorObject = $scope.actor;
+         return actorObject.firstName + " " + actorObject.lastName;
+      }
+   };
+});
+</script>
+
+</body>
+</html>
